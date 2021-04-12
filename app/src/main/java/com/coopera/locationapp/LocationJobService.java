@@ -17,11 +17,11 @@ public class LocationJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "Job is started");
-        doBackground(params);
+        runTaskInBackground(params);
         return true;
     }
 
-    private void doBackground(JobParameters params) {
+    private void runTaskInBackground(JobParameters params) {
         new Thread(new Runnable() {
             @SuppressLint("MissingPermission")
             @Override
