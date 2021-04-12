@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LocationApp</string>
+    <string name="location_request_text">Solicitud de ubicación</string>
+    <string name="location_request_message">La aplicación necesita tener el acceso a la ubicación para funcionar correctamente</string>
+    <string name="get_request_btn_text">Obtener ubicación</string>
+    <string name="gps_title_text">Gps</string>
+    <string name="gps_message_text">El GPS está desactivado en su dispositivo. Por favor habilitelo e intente de nuevo</string>
+    <string name="accept_btn_text">Aceptar</string>
+    <string name="cancel_btn_text">Cancelar</string>
+</resources>
