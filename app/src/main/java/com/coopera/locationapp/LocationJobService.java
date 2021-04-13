@@ -19,13 +19,13 @@ public class LocationJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "Job is started");
-        String phoneImei = getPreferences();
+        String phoneImei = getImeiFromPreferences();
         Log.d(TAG, "Phone IMEI: " +  phoneImei);
         runTaskInBackground(params);
         return true;
     }
 
-    private String getPreferences() {
+    private String getImeiFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
         return sharedPreferences.getString("phoneImei", "null");
     }
