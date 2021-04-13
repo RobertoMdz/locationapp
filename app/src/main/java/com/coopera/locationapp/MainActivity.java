@@ -1,6 +1,7 @@
 package com.coopera.locationapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,12 +13,15 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,13 +29,33 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_REQUEST_CODE = 200;
     private static final int JOB_ID = 101;
 
+    private EditText phoneImei;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        phoneImei = findViewById(R.id.editTextIMEI);
+
     }
 
-    public void requestDeviceLocation(View view) {
+    public void setInfoToPrefrerences(View v) {
+        SharedPreferences preferences =   getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
+        String imeiTxt = phoneImei.getText().toString().trim();
+        if (imeiTxt.isEmpty()) {
+            Toast.makeText(this, "Ingresa el IMEI para continuar", Toast.LENGTH_SHORT).show();
+        } else {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("phoneImei", imeiTxt);
+            editor.apply();
+            Toast.makeText(this, "IMEI has been added succesfuly", Toast.LENGTH_SHORT).show();
+            requestDeviceLocation();
+        }
+
+    }
+
+    public void requestDeviceLocation() {
         if(isGpsEnabled()) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 configureJobRestriccions();

@@ -11,11 +11,24 @@
         android:id="@+id/request_location"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:onClick="requestDeviceLocation"
-        android:text="Request location and start service"
+        android:onClick="setInfoToPrefrerences"
+        android:text="Save info and run service"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextIMEI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter phone IMEI"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

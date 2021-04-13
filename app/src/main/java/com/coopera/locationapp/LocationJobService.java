@@ -3,6 +3,8 @@ package com.coopera.locationapp;
 import android.annotation.SuppressLint;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -17,8 +19,15 @@ public class LocationJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "Job is started");
+        String phoneImei = getPreferences();
+        Log.d(TAG, "Phone IMEI: " +  phoneImei);
         runTaskInBackground(params);
         return true;
+    }
+
+    private String getPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("phoneInfo", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("phoneImei", "null");
     }
 
     private void runTaskInBackground(JobParameters params) {
