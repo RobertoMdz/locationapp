@@ -50,14 +50,12 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("phoneImei", imeiTxt);
             editor.apply();
             Toast.makeText(this, "IMEI has been added succesfuly", Toast.LENGTH_SHORT).show();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                requestDeviceLocation();
-            }
+            requestDeviceLocation();
+
         }
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void requestDeviceLocation() {
         if(isGpsEnabled()) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -88,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == LOCATION_REQUEST_CODE) {
             if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    configureJobRestriccions();
-                }
+
+                configureJobRestriccions();
+
             } else {
                 Toast.makeText(this, "La aplicación podría no funcionar correctamente", Toast.LENGTH_SHORT).show();
             }
@@ -142,14 +140,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void configureJobRestriccions() {
         ComponentName componentName = new ComponentName(this, LocationJobService.class);
         JobInfo jobInfo = new JobInfo.Builder(JOB_ID, componentName)
                 .setRequiresCharging(false)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true)
-                .setPeriodic(15 * 60 * 1000, 14 * 60 * 1000)
+                .setPeriodic(15 * 60 * 1000)
                 .build();
         setJobToJobScheduler(jobInfo);
     }
@@ -164,9 +161,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void cancelJob(View view) {
+    /*public void cancelJob(View view) {
         JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         jobScheduler.cancel(JOB_ID);
         Log.d("Main Activity", "Job scheduled canceled");
-    }
+    }*/
 }

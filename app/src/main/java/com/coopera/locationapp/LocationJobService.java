@@ -9,6 +9,9 @@ import android.location.Location;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +64,7 @@ public class LocationJobService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.d(TAG, "Job has been canceled");
-        isJobCancelled = true;
-        return true;
+        isJobCancelled = false;
+        return false;
     }
 }
